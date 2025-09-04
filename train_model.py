@@ -25,12 +25,12 @@ team_attack = df.groupby('team')['total_points'].mean().to_dict()
 # mapping that strength to each player's row
 df['team_strength'] = df['team'].map(team_attack)
 
-# CALCULATING ROLLING 5 GAMEWEEK XG (EXPECTED GOALS)
+# CALCULATING ROLLING 5 GAMEWEEK expected_goals (EXPECTED GOALS)
 xg_series = df.groupby('name')['expected_goals'].rolling(window=5, min_periods=1).mean().shift(1).fillna(0)
 xg_series = xg_series.reset_index(level=0, drop=True)
 df['rolling_xg'] = xg_series
 
-# CALCULATING ROLLING 5 GAMEWEEK XA (EXPECTED ASSISTS)
+# CALCULATING ROLLING 5 GAMEWEEK expected_assists (EXPECTED ASSISTS)
 xa_series = df.groupby('name')['expected_assists'].rolling(window=5, min_periods=1).mean().shift(1).fillna(0)
 xa_series = xa_series.reset_index(level=0, drop=True)
 df['rolling_xa'] = xa_series
